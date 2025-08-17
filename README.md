@@ -53,12 +53,18 @@ The app uses React Context for state management with:
    npm install
    ```
 
-3. Start the development server:
+3. (Optional) Create a `.env` file to customize the port:
+   ```bash
+   # .env file
+   PORT=4001
+   ```
+
+4. Start the development server:
    ```bash
    npm run dev
    ```
 
-4. Open http://localhost:4001 to view the standalone app
+5. Open http://localhost:4001 to view the standalone app (or your custom PORT)
 
 ### Production Build
 
@@ -109,6 +115,21 @@ interface Product {
   status: 'active' | 'inactive';
   createdAt: Date;
 }
+```
+
+## Environment Variables
+
+The Product Manager supports the following environment variables:
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `PORT` | `4001` | Port for the development server |
+
+Create a `.env` file in the root directory to customize this value:
+
+```bash
+# .env
+PORT=4001
 ```
 
 ## Development

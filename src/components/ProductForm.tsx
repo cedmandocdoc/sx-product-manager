@@ -34,7 +34,6 @@ export const ProductForm: React.FC<ProductFormProps> = ({ onSubmit }) => {
       status: formData.status,
     });
 
-    // Reset form
     setFormData({
       title: '',
       sku: '',
