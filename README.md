@@ -7,7 +7,7 @@ A microfrontend remote application for managing products with real-time state sy
 ### Prerequisites
 
 - Node.js >= 22.14.0 (use `nvm use` if you have nvm installed)
-- npm or yarn
+- npm
 
 ### Environment
 
