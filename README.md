@@ -106,11 +106,12 @@ src/
 │   └── ProductTable.tsx         # Product listing and management
 ├── contexts/
 │   └── ProductsContext.tsx      # State management context
+├── models/
+│   └── Product.ts               # Product data model definitions
 ├── types/
-│   └── Product.ts               # Product type definitions
+│   └── events.d.ts              # Custom event type definitions
 ├── utils/
-│   ├── getLocalStorageItem.ts   # localStorage utilities
-│   └── setLocalStorageItem.ts
+│   └── dispatchCustomEvent.ts   # Custom event dispatching utility
 └── App.tsx                      # Main application component
 ```
 
