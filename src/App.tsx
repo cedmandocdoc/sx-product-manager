@@ -6,26 +6,12 @@ function App() {
   const { products, addProduct, toggleProductStatus } = useProductsContext();
 
   return (
-    <div style={{ 
-      maxWidth: '1200px', 
-      margin: '0 auto', 
-      padding: '24px',
-      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'
-    }}>
-      <div style={{ marginBottom: '32px' }}>
-        <h1 style={{ 
-          margin: '0 0 8px 0', 
-          fontSize: '28px', 
-          fontWeight: '700', 
-          color: '#212529'
-        }}>
+    <div className="max-w-6xl mx-auto p-6 font-sans">
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-gray-800 mb-2">
           Product Manager
         </h1>
-        <p style={{ 
-          margin: 0, 
-          color: '#6c757d', 
-          fontSize: '16px'
-        }}>
+        <p className="text-gray-500 text-base">
           Manage your product catalog with real-time updates
         </p>
       </div>

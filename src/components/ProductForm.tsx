@@ -43,88 +43,61 @@ export const ProductForm: React.FC<ProductFormProps> = ({ onSubmit }) => {
   };
 
   return (
-    <div style={{ 
-      backgroundColor: '#f8f9fa', 
-      padding: '24px', 
-      borderRadius: '8px', 
-      marginBottom: '24px',
-      border: '1px solid #e9ecef'
-    }}>
-      <h2 style={{ marginTop: 0, marginBottom: '16px', color: '#495057' }}>Add New Product</h2>
+    <div className="bg-gray-50 p-6 rounded-lg mb-6 border border-gray-200">
+      <h2 className="mt-0 mb-4 text-gray-600 text-xl font-semibold">Add New Product</h2>
       <form onSubmit={handleSubmit}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px' }}>
+        <div className="grid grid-cols-2 gap-4 mb-4">
           <div>
-            <label style={{ display: 'block', marginBottom: '4px', fontWeight: '500', color: '#495057' }}>
+            <label className="block mb-1 font-medium text-gray-600 text-sm">
               Title *
             </label>
             <input
+              name='title'
               type="text"
               value={formData.title}
               onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-              style={{
-                width: '100%',
-                padding: '8px 12px',
-                border: '1px solid #ced4da',
-                borderRadius: '4px',
-                fontSize: '14px',
-              }}
+              className="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               placeholder="Enter product title"
             />
           </div>
           <div>
-            <label style={{ display: 'block', marginBottom: '4px', fontWeight: '500', color: '#495057' }}>
+            <label className="block mb-1 font-medium text-gray-600 text-sm">
               SKU *
             </label>
             <input
+              name='sku'
               type="text"
               value={formData.sku}
               onChange={(e) => setFormData({ ...formData, sku: e.target.value })}
-              style={{
-                width: '100%',
-                padding: '8px 12px',
-                border: '1px solid #ced4da',
-                borderRadius: '4px',
-                fontSize: '14px',
-              }}
+              className="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               placeholder="Enter SKU"
             />
           </div>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px' }}>
+        <div className="grid grid-cols-2 gap-4 mb-4">
           <div>
-            <label style={{ display: 'block', marginBottom: '4px', fontWeight: '500', color: '#495057' }}>
+            <label className="block mb-1 font-medium text-gray-600 text-sm">
               Price *
             </label>
             <input
+              name='price'
               type="number"
               step="0.01"
               min="0"
               value={formData.price}
               onChange={(e) => setFormData({ ...formData, price: e.target.value })}
-              style={{
-                width: '100%',
-                padding: '8px 12px',
-                border: '1px solid #ced4da',
-                borderRadius: '4px',
-                fontSize: '14px',
-              }}
+              className="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               placeholder="0.00"
             />
           </div>
           <div>
-            <label style={{ display: 'block', marginBottom: '4px', fontWeight: '500', color: '#495057' }}>
+            <label className="block mb-1 font-medium text-gray-600 text-sm">
               Status
             </label>
             <select
               value={formData.status}
               onChange={(e) => setFormData({ ...formData, status: e.target.value as 'active' | 'inactive' })}
-              style={{
-                width: '100%',
-                padding: '8px 12px',
-                border: '1px solid #ced4da',
-                borderRadius: '4px',
-                fontSize: '14px',
-              }}
+              className="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             >
               <option value="active">Active</option>
               <option value="inactive">Inactive</option>
@@ -133,16 +106,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ onSubmit }) => {
         </div>
         <button
           type="submit"
-          style={{
-            backgroundColor: '#007bff',
-            color: 'white',
-            border: 'none',
-            padding: '10px 20px',
-            borderRadius: '4px',
-            fontSize: '14px',
-            fontWeight: '500',
-            cursor: 'pointer',
-          }}
+          className="bg-blue-600 text-white border-none px-5 py-2.5 rounded text-sm font-medium cursor-pointer hover:bg-blue-700 transition-colors duration-200"
         >
           Add Product
         </button>
