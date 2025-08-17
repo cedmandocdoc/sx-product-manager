@@ -9,7 +9,7 @@ export default defineConfig({
       name: 'productManager',
       filename: 'remoteEntry.js',
       exposes: {
-        './ProductManager': './src/App.tsx',
+        './App': './src/App.tsx',
       },
       shared: ['react', 'react-dom']
     })
