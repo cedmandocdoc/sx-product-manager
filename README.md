@@ -1,173 +1,119 @@
 # Product Manager (Remote App)
 
-A microfrontend remote application built with React, Vite, and TypeScript that provides product management functionality.
+A microfrontend remote application for managing products with real-time state synchronization capabilities.
 
-## Features
-
-- **Product Form**: Create new products with title, SKU, price, and status
-- **Product Table**: Display all products with real-time updates
-- **Status Toggle**: Switch products between active and inactive states
-- **State Management**: Centralized store with subscription-based updates
-- **Module Federation**: Exposes components and store for consumption by host apps
-
-## Architecture
-
-### Microfrontend Configuration
-- **Remote Name**: `productManager`
-- **Port**: 4001
-- **Exposed Modules**:
-  - `./ProductModule`: Main product management component
-  - `./ProductProvider`: React Context provider for state management
-
-### State Management
-The app uses React Context for state management with:
-- **ProductContext**: Centralized state management using React Context and useReducer
-- **Custom Events**: Real-time updates via custom DOM events
-- **Event Communication**: Cross-app communication through window events
-
-### Technical Decisions
-
-1. **React Context vs Redux**: Chose React Context with useReducer for lightweight state management while maintaining React patterns.
-
-2. **Custom Events Communication**: Used DOM custom events for cross-app communication, following the pattern `{repo-name}:{event-name}` for clear event namespacing.
-
-3. **Module Federation**: Exposes both the UI component and the context provider separately to give the host app flexibility in integration.
-
-4. **TypeScript**: Provides type safety and better developer experience.
-
-## Setup Instructions
+## Setup
 
 ### Prerequisites
-- Node.js 16+
+
+- Node.js >= 22.14.0 (use `nvm use` if you have nvm installed)
 - npm or yarn
 
-### Installation
+### Environment
 
-1. Navigate to the product manager directory:
-   ```bash
-   cd sx-product-manager
-   ```
+Create a `.env` file in the root directory with the following variables:
 
-2. Install dependencies:
+```bash
+# Product Manager port
+VITE_PORT=4001
+```
+
+**Environment Variables:**
+- `VITE_PORT` - Port for the development server (default: 4001)
+
+### Running
+
+1. **Install dependencies:**
    ```bash
    npm install
    ```
 
-3. (Optional) Create a `.env` file to customize the port:
-   ```bash
-   # .env file
-   PORT=4001
-   ```
-
-4. Start the development server:
+2. **Start the development server:**
    ```bash
    npm run dev
    ```
 
-5. Open http://localhost:4001 to view the standalone app (or your custom PORT)
+3. **Access the application:**
+   Open http://localhost:4001 (or your custom VITE_PORT)
 
-### Production Build
+## Architecture
 
-```bash
-npm run build
-npm run preview
-```
+### Dual Mode Operation
+This application can operate in two modes:
 
-## Usage
+#### Standalone Mode
+- **Independent Operation**: Run as a complete product management application
+- **Full UI**: Includes all product management features (create, view, toggle status)
+- **Local State**: Manages its own state using React Context
+- **Direct Usage**: Access directly via browser for development and testing
 
-### Standalone Mode
-Run the app independently to test product management functionality.
+#### Microfrontend Mode
+- **Remote Integration**: Consumed by host applications via Module Federation
+- **Exposed Components**: Makes the main App component available to host apps
+- **State Broadcasting**: Communicates state changes via custom DOM events
 
-### Microfrontend Mode
-The app automatically exposes its modules when running. The host app can consume:
-- `productManager/ProductModule` - The main UI component (includes ProductProvider)
-- `productManager/ProductProvider` - The React Context provider
+### State Propagation
+The application uses **Custom DOM Events** to communicate state changes to host applications:
 
-### Communication Events
+#### Communication Events
+Events follow the pattern: `sx-product-manager:{event-name}`
 
-#### Dispatched Events (Product Manager → Dashboard)
+**Dispatched Events:**
 - `sx-product-manager:product-added` - When a new product is created
-- `sx-product-manager:product-updated` - When a product is modified
-- `sx-product-manager:product-removed` - When a product is deleted
+  ```javascript
+  {
+    detail: {
+      product: Product
+    }
+  }
+  ```
+
 - `sx-product-manager:product-status-toggled` - When product status changes
-- `sx-product-manager:metrics-response` - Response to metrics request
+  ```javascript
+  {
+    detail: {
+      productId: string,
+      oldStatus: 'active' | 'inactive',
+      newStatus: 'active' | 'inactive'
+    }
+  }
+  ```
 
-#### Listened Events (Dashboard → Product Manager)
-- `sx-dashboard:request-metrics` - Request for current metrics data
+#### Event Broadcasting
+- **Automatic**: Events are dispatched automatically on state changes
+- **Bubbling**: Events bubble up to the window level for cross-app communication
+- **Real-time**: Immediate propagation ensures instant synchronization
+- **Decoupled**: No direct dependencies on consuming applications
 
-#### Event Data Structure
-All events include a `detail.metrics` object with:
-```typescript
-{
-  total: number;    // Total number of products
-  active: number;   // Number of active products
-  inactive: number; // Number of inactive products
-}
-```
+### Module Federation
+Uses **Module Federation** from Vite to expose components as remotely consumable modules:
 
-#### Product Interface
-```typescript
-interface Product {
-  id: string;
-  title: string;
-  sku: string;
-  price: number;
-  status: 'active' | 'inactive';
-  createdAt: Date;
-}
-```
+- **Exposed Module**: `./App` - Main application component
+- **Shared Dependencies**: React and React-DOM are shared with host applications
+- **Runtime Loading**: Components are loaded dynamically by host applications
+- **Independent Deployment**: Can be built and deployed separately from host apps
 
-## Environment Variables
+### State Management
+- **React Context**: Uses ProductsContext for centralized state management
+- **Event-Driven Updates**: UI updates trigger custom event dispatch
 
-The Product Manager supports the following environment variables:
-
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `PORT` | `4001` | Port for the development server |
-
-Create a `.env` file in the root directory to customize this value:
-
-```bash
-# .env
-PORT=4001
-```
-
-## Development
-
-### File Structure
+### Application Structure
 ```
 src/
-├── components/          # React components
-│   ├── ProductForm.tsx  # Product creation form
-│   └── ProductTable.tsx # Product listing table
-├── hooks/              # Custom React hooks
-│   └── useProductStore.ts
-├── store/              # State management
-│   └── productStore.ts
-├── types/              # TypeScript definitions
-│   └── Product.ts
-├── ProductModule.tsx   # Main exported component
-├── App.tsx            # Standalone app wrapper
-└── main.tsx           # Entry point
+├── components/
+│   ├── ProductForm.tsx          # Product creation form
+│   └── ProductTable.tsx         # Product listing and management
+├── contexts/
+│   └── ProductsContext.tsx      # State management context
+├── types/
+│   └── Product.ts               # Product type definitions
+├── utils/
+│   ├── getLocalStorageItem.ts   # localStorage utilities
+│   └── setLocalStorageItem.ts
+└── App.tsx                      # Main application component
 ```
 
-### Adding New Features
-1. Update the Product interface in `types/Product.ts`
-2. Modify the ProductStore methods as needed
-3. Update components to handle new fields
-4. Export any new functionality via Module Federation
-
-## Troubleshooting
-
-### Port Conflicts
-If port 4001 is busy, update the port in `vite.config.ts`:
-```typescript
-server: {
-  port: YOUR_PORT
-}
-```
-
-### Module Federation Issues
-- Ensure the app is running before the host app tries to consume it
-- Check the network tab for failed remote module requests
-- Verify the remote URL in the host app configuration
+### Key Features
+- **Product Management**: Create products with title, SKU, price, and status
+- **Status Toggle**: Switch products between active and inactive states
+- **Real-time Events**: State changes are broadcast to consuming applications
