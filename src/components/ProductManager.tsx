@@ -1,11 +1,10 @@
 import React from 'react';
-import { ProductForm } from './components/ProductForm';
-import { ProductTable } from './components/ProductTable';
-import { useProductStore } from './hooks/useProductStore';
-import { ProductProvider } from './store/productStore';
+import { ProductForm } from './ProductForm';
+import { ProductTable } from './ProductTable';
+import { useProductsContext } from '../contexts/ProductsContext';
 
-const ProductModuleContent: React.FC = () => {
-  const { products, addProduct, toggleProductStatus } = useProductStore();
+const ProductManager: React.FC = () => {
+  const { products, addProduct, toggleProductStatus } = useProductsContext();
 
   return (
     <div style={{ 
@@ -38,12 +37,4 @@ const ProductModuleContent: React.FC = () => {
   );
 };
 
-const ProductModule: React.FC = () => {
-  return (
-    <ProductProvider>
-      <ProductModuleContent />
-    </ProductProvider>
-  );
-};
-
-export default ProductModule;
+export default ProductManager;

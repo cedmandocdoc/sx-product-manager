@@ -54,7 +54,7 @@ export const ProductTable: React.FC<ProductTableProps> = ({ products, onToggleSt
                   <div>
                     <div style={{ fontWeight: '500', color: '#212529' }}>{product.title}</div>
                     <div style={{ fontSize: '12px', color: '#6c757d' }}>
-                      Created: {product.createdAt.toLocaleDateString()}
+                      Created: {new Date(product.createdAt).toLocaleDateString()}
                     </div>
                   </div>
                 </td>

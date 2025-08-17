@@ -4,5 +4,5 @@ export interface Product {
   sku: string;
   price: number;
   status: 'active' | 'inactive';
-  createdAt: Date;
+  createdAt: string;
 }

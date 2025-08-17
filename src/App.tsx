@@ -1,14 +1,11 @@
-import React from 'react';
-import ProductModule from './ProductModule';
-import { ProductProvider } from './store/productStore';
+import ProductManager from './components/ProductManager';
+import { ProductsProvider } from './contexts/ProductsContext';
 
 function App() {
   return (
-    <ProductProvider>
-      <div style={{ minHeight: '100vh', backgroundColor: '#f8f9fa' }}>
-        <ProductModule />
-      </div>
-    </ProductProvider>
+    <ProductsProvider>
+      <ProductManager />
+    </ProductsProvider>
   );
 }
 
