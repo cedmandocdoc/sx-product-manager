@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Product } from '../types/Product';
 
-interface ProductFormProps {
+type ProductFormProps = {
   onSubmit: (product: Omit<Product, 'id' | 'createdAt'>) => void;
 }
 

@@ -3,7 +3,7 @@ import { Product } from '../types/Product';
 import getLocalStorageItem from '../utils/getLocalStorageItem';
 import setLocalStorageItem from '../utils/setLocalStorageItem';
 
-interface ProductsContextType {
+type ProductsContextType = {
   products: Product[];
   addProduct: (productData: Omit<Product, 'id' | 'createdAt'>) => void;
   toggleProductStatus: (id: string) => void;

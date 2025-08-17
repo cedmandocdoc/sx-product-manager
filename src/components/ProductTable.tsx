@@ -1,7 +1,7 @@
 import React from 'react';
 import { Product } from '../types/Product';
 
-interface ProductTableProps {
+type ProductTableProps = {
   products: Product[];
   onToggleStatus: (id: string) => void;
 }
