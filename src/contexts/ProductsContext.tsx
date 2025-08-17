@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, ReactNode } from 'react';
-import { Product } from '../types/Product';
+import { Product } from '../models/Product';
+import dispatchCustomEvent from '../utils/dispatchCustomEvent';
 
 type ProductsContextType = {
   products: Product[];
@@ -7,18 +8,11 @@ type ProductsContextType = {
   toggleProductStatus: (id: string) => void;
 }
 
+
 const ProductsContext = createContext<ProductsContextType | undefined>(undefined);
 
 export function ProductsProvider({ children }: { children: ReactNode }) {
   const [products, setProducts] = useState<Product[]>([]);
-
-  const dispatchCustomEvent = (eventName: string, detail: any) => {
-    const event = new CustomEvent(`sx-product-manager:${eventName}`, {
-      detail,
-      bubbles: true
-    });
-    window.dispatchEvent(event);
-  };
 
   const addProduct = (productData: Omit<Product, 'id' | 'createdAt'>) => {
     const newProduct: Product = {
@@ -29,7 +23,7 @@ export function ProductsProvider({ children }: { children: ReactNode }) {
     
     setProducts(prevProducts => [...prevProducts, newProduct]);
     
-    dispatchCustomEvent('product-added', {
+    dispatchCustomEvent('sx-product-manager:product-added', {
       product: newProduct
     });
   };
@@ -47,7 +41,7 @@ export function ProductsProvider({ children }: { children: ReactNode }) {
         )
       );
       
-      dispatchCustomEvent('product-status-toggled', {
+      dispatchCustomEvent('sx-product-manager:product-status-toggled', {
         productId: id,
         oldStatus: product.status,
         newStatus
