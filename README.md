@@ -11,14 +11,8 @@ A microfrontend remote application for managing products with real-time state sy
 
 ### Environment
 
-Create a `.env` file in the root directory with the following variables:
+Copy `.env.sample` to `.env` and configure the following variables:
 
-```bash
-# Product Manager port
-VITE_PORT=4001
-```
-
-**Environment Variables:**
 - `VITE_PORT` - Port for the development server (default: 4001)
 
 ### Running
@@ -28,13 +22,21 @@ VITE_PORT=4001
    npm install
    ```
 
-2. **Start the development server:**
+2. **Start the server:**
    ```bash
-   npm run dev
+   npm start
    ```
 
 3. **Access the application:**
    Open http://localhost:4001 (or your custom VITE_PORT)
+
+**Full list of available script**
+| Script    | Command             | Description                                                    |
+|-----------|---------------------|----------------------------------------------------------------|
+| `dev`     | `npm run dev`       | Start the development server with hot module replacement      |
+| `start`   | `npm start`         | Run the application for production      |
+| `build`   | `npm run build`     | Build the application for production deployment               |
+| `preview` | `npm run preview`   | Preview the production build locally before deployment       |
 
 ## Architecture
 
@@ -82,7 +84,6 @@ Events follow the pattern: `sx-product-manager:{event-name}`
 #### Event Broadcasting
 - **Automatic**: Events are dispatched automatically on state changes
 - **Bubbling**: Events bubble up to the window level for cross-app communication
-- **Real-time**: Immediate propagation ensures instant synchronization
 - **Decoupled**: No direct dependencies on consuming applications
 
 ### Module Federation
@@ -116,4 +117,3 @@ src/
 ### Key Features
 - **Product Management**: Create products with title, SKU, price, and status
 - **Status Toggle**: Switch products between active and inactive states
-- **Real-time Events**: State changes are broadcast to consuming applications
