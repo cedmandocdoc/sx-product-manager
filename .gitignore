@@ -102,3 +102,7 @@ temp/
 
 # Yarn lock file (uncomment if not using yarn)
 # yarn.lock
+
+# Playwright
+test-results/
+playwright-report/

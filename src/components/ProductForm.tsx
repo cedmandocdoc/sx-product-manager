@@ -43,7 +43,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ onSubmit }) => {
   };
 
   return (
-    <div className="bg-gray-50 p-6 rounded-lg mb-6 border border-gray-200">
+    <div className="bg-gray-50 p-6 rounded-lg mb-6 border border-gray-200" data-testid="product-form">
       <h2 className="mt-0 mb-4 text-gray-600 text-xl font-semibold">Add New Product</h2>
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-2 gap-4 mb-4">
@@ -58,6 +58,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ onSubmit }) => {
               onChange={(e) => setFormData({ ...formData, title: e.target.value })}
               className="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               placeholder="Enter product title"
+              data-testid="product-title-input"
             />
           </div>
           <div>
@@ -71,6 +72,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ onSubmit }) => {
               onChange={(e) => setFormData({ ...formData, sku: e.target.value })}
               className="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               placeholder="Enter SKU"
+              data-testid="product-sku-input"
             />
           </div>
         </div>
@@ -88,6 +90,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ onSubmit }) => {
               onChange={(e) => setFormData({ ...formData, price: e.target.value })}
               className="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               placeholder="0.00"
+              data-testid="product-price-input"
             />
           </div>
           <div>
@@ -98,6 +101,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ onSubmit }) => {
               value={formData.status}
               onChange={(e) => setFormData({ ...formData, status: e.target.value as 'active' | 'inactive' })}
               className="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              data-testid="product-status-select"
             >
               <option value="active">Active</option>
               <option value="inactive">Inactive</option>
@@ -107,6 +111,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ onSubmit }) => {
         <button
           type="submit"
           className="bg-blue-600 text-white border-none px-5 py-2.5 rounded text-sm font-medium cursor-pointer hover:bg-blue-700 transition-colors duration-200"
+          data-testid="add-product-button"
         >
           Add Product
         </button>
