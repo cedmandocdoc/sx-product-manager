@@ -18,11 +18,13 @@ Copy `.env.sample` to `.env` and configure the following variables:
 ### Running
 
 1. **Install dependencies:**
+
    ```bash
    npm install
    ```
 
 2. **Start the server:**
+
    ```bash
    npm start
    ```
@@ -30,42 +32,49 @@ Copy `.env.sample` to `.env` and configure the following variables:
 3. **Access the application:**
    Open http://localhost:4001 (or your custom VITE_PORT)
 
-**Full list of available script**
-| Script    | Command             | Description                                                    |
+**Full list of available building script**
+| Script | Command | Description |
 |-----------|---------------------|----------------------------------------------------------------|
-| `dev`     | `npm run dev`       | Start the development server with hot module replacement      |
-| `start`   | `npm start`         | Run the application for production      |
-| `build`   | `npm run build`     | Build the application for production deployment               |
-| `preview` | `npm run preview`   | Preview the production build locally before deployment       |
+| `dev` | `npm run dev` | Start the development server with hot module replacement |
+| `start` | `npm start` | Run the application for production |
+| `build` | `npm run build` | Build the application for production deployment |
+| `preview` | `npm run preview` | Preview the production build locally before deployment |
 
 ## Architecture
 
 ### Dual Mode Operation
+
 This application can operate in two modes:
 
 #### Standalone Mode
+
 - **Independent Operation**: Run as a complete product management application
 - **Full UI**: Includes all product management features (create, view, toggle status)
 - **Local State**: Manages its own state using React Context
 - **Direct Usage**: Access directly via browser for development and testing
 
 #### Microfrontend Mode
+
 - **Remote Integration**: Consumed by host applications via Module Federation
 - **Exposed Components**: Makes the main App component available to host apps
 - **State Broadcasting**: Communicates state changes via custom DOM events
 
 ### State Propagation
+
 The application uses **Custom DOM Events** to communicate state changes to host applications:
 
 #### Communication Events
+
 Events follow the pattern: `sx-product-manager:{event-name}`
 
 **Dispatched Events:**
+
 - `sx-product-manager:product-added` - When a new product is created
+
   ```javascript
   {
     detail: {
-      product: Product
+      product: Product;
     }
   }
   ```
@@ -82,11 +91,13 @@ Events follow the pattern: `sx-product-manager:{event-name}`
   ```
 
 #### Event Broadcasting
+
 - **Automatic**: Events are dispatched automatically on state changes
 - **Bubbling**: Events bubble up to the window level for cross-app communication
 - **Decoupled**: No direct dependencies on consuming applications
 
 ### Module Federation
+
 Uses **Module Federation** from Vite to expose components as remotely consumable modules:
 
 - **Exposed Module**: `./App` - Main application component
@@ -95,10 +106,12 @@ Uses **Module Federation** from Vite to expose components as remotely consumable
 - **Independent Deployment**: Can be built and deployed separately from host apps
 
 ### State Management
+
 - **React Context**: Uses ProductsContext for centralized state management
 - **Event-Driven Updates**: UI updates trigger custom event dispatch
 
 ### Application Structure
+
 ```
 src/
 ├── components/
@@ -116,5 +129,28 @@ src/
 ```
 
 ### Key Features
+
 - **Product Management**: Create products with title, SKU, price, and status
 - **Status Toggle**: Switch products between active and inactive states
+
+## Testing
+
+### Available Test Scripts
+
+| Script            | Command                   | Description                               |
+| ----------------- | ------------------------- | ----------------------------------------- |
+| `test:e2e`        | `npm run test:e2e`        | Run all e2e tests in headless mode        |
+| `test:e2e:update` | `npm run test:e2e:update` | Run all e2e tests with updating snapshots |
+
+### Quick Start
+
+```bash
+# Install Playwright browsers (one-time setup)
+npx playwright install
+
+# Run all tests
+npm run test:e2e
+
+# Run all tests with update snapshots
+npm run test:e2e:update
+```
