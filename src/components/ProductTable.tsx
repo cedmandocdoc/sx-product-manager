@@ -1,5 +1,6 @@
 import React from 'react';
 import { Product } from '../models/Product';
+import { TestId } from '../lib/TestId';
 
 type ProductTableProps = {
   products: Product[];
@@ -15,14 +16,14 @@ export const ProductTable: React.FC<ProductTableProps> = ({ products, onToggleSt
         backgroundColor: '#f8f9fa',
         borderRadius: '8px',
         color: '#6c757d'
-      }} data-testid="empty-state">
+      }} data-testid={TestId.EMPTY_STATE}>
         <p style={{ margin: 0, fontSize: '16px' }}>No products yet. Add your first product above!</p>
       </div>
     );
   }
 
   return (
-    <div style={{ backgroundColor: 'white', borderRadius: '8px', overflow: 'hidden', border: '1px solid #e9ecef' }} data-testid="product-table">
+    <div style={{ backgroundColor: 'white', borderRadius: '8px', overflow: 'hidden', border: '1px solid #e9ecef' }} data-testid={TestId.PRODUCT_TABLE}>
       <h2 style={{ margin: 0, padding: '16px 24px', backgroundColor: '#f8f9fa', borderBottom: '1px solid #e9ecef', color: '#495057' }}>
         Products ({products.length})
       </h2>
@@ -49,19 +50,19 @@ export const ProductTable: React.FC<ProductTableProps> = ({ products, onToggleSt
           </thead>
           <tbody>
             {products.map((product, index) => (
-              <tr key={product.id} style={{ backgroundColor: index % 2 === 0 ? 'white' : '#f8f9fa' }} data-testid="product-row" data-sku={product.sku}>
+              <tr key={product.id} style={{ backgroundColor: index % 2 === 0 ? 'white' : '#f8f9fa' }} data-testid={TestId.PRODUCT_ROW} data-sku={product.sku}>
                 <td style={{ padding: '12px 16px', borderBottom: '1px solid #e9ecef' }}>
                   <div>
-                    <div style={{ fontWeight: '500', color: '#212529' }} data-testid="product-title">{product.title}</div>
+                    <div style={{ fontWeight: '500', color: '#212529' }} data-testid={TestId.PRODUCT_TITLE}>{product.title}</div>
                     <div style={{ fontSize: '12px', color: '#6c757d' }}>
                       Created: {new Date(product.createdAt).toLocaleDateString()}
                     </div>
                   </div>
                 </td>
-                <td style={{ padding: '12px 16px', color: '#495057', borderBottom: '1px solid #e9ecef' }} data-testid="product-sku">
+                <td style={{ padding: '12px 16px', color: '#495057', borderBottom: '1px solid #e9ecef' }} data-testid={TestId.PRODUCT_SKU}>
                   {product.sku}
                 </td>
-                <td style={{ padding: '12px 16px', textAlign: 'right', fontWeight: '500', color: '#212529', borderBottom: '1px solid #e9ecef' }} data-testid="product-price">
+                <td style={{ padding: '12px 16px', textAlign: 'right', fontWeight: '500', color: '#212529', borderBottom: '1px solid #e9ecef' }} data-testid={TestId.PRODUCT_PRICE}>
                   ${product.price.toFixed(2)}
                 </td>
                 <td style={{ padding: '12px 16px', textAlign: 'center', borderBottom: '1px solid #e9ecef' }}>
@@ -74,7 +75,7 @@ export const ProductTable: React.FC<ProductTableProps> = ({ products, onToggleSt
                       backgroundColor: product.status === 'active' ? '#d4edda' : '#f8d7da',
                       color: product.status === 'active' ? '#155724' : '#721c24',
                     }}
-                    data-testid="product-status"
+                    data-testid={TestId.PRODUCT_STATUS}
                   >
                     {product.status.charAt(0).toUpperCase() + product.status.slice(1)}
                   </span>
@@ -92,7 +93,7 @@ export const ProductTable: React.FC<ProductTableProps> = ({ products, onToggleSt
                       cursor: 'pointer',
                       fontWeight: '500',
                     }}
-                    data-testid="toggle-status-button"
+                    data-testid={TestId.TOGGLE_BUTTON}
                   >
                     {product.status === 'active' ? 'Deactivate' : 'Activate'}
                   </button>
